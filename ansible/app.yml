@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Clone app from github
+      ansible.builtin.git:
+        repo: 'https://github.com/r0psteev/fakevirustotal-app'
+        dest: /root/fakevirustotal-app
+    
+    - name: Build the app's docker images
+      ansible.builtin.command: sudo make build
+      args:
+        chdir: /root/fakevirustotal-app
